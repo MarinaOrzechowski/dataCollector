@@ -1,0 +1,109 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Happiness data collector</title>
+    <meta name="description" content="Happiness data collector">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+    <script type="text/javascript" src="../static/tabs.js"></script>
+    <link rel="stylesheet" href="../static/style.css">
+
+</head>
+
+<body>
+
+    <!-- background and header -->
+    <div class="container">
+        <img id="bg" src="../static/img/bg_baloons.jpg" />
+        <div class="center">
+            <h1>World Happiness Data Collector</h1>
+        </div>
+    </div>
+
+    <!-- vertical tabs-->
+    <div class="vertical_tab">
+        <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'Instructions')">Instructions</button>
+            <button class="tablinks" onclick="openTab(event, 'CollectData')" id="defaultOpen">How happy are
+                you?</button>
+
+        </div>
+
+        <!-- Instructions -->
+        <div id="Instructions" class="tabcontent">
+            <div class="Instructions">
+                <p>This page was created to collect data about happiness of users of different age.
+                    There are many factors which influence our happiness: family, health, community, weather, ability to
+                    travel, etc.</p>
+                <p>Let's try to find out if our age matters and people of what age are the happiest.</p>
+                <p>Please open the next tab "How happy are you?" and answer two simple questions. The results will be
+                    available only after you complete the survey and it will be send to you via email.</p><br>
+                <p>Thank you for your time!</p>
+            </div>
+        </div>
+
+        <!-- Collect Data -->
+        <div id="CollectData" class="tabcontent">
+
+            <form action="{{url_for('result')}}" method='POST'>
+                <table class="tbl-entry">
+                    <tr>
+                        <td>Select your age group</td>
+                        <td>
+                            <select name="age_name">
+                                <option value="childhood">0-14</option>
+                                <option value="youth">15-24</option>
+                                <option value="adulthood" selected="selected">25-64</option>
+                                <option value="seniority">65 years and above</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><br>How happy are you? </td>
+                        <td><br>
+                            <input type="range" min="1" max="10" value="5" class="slider" id="myRange" name="level_name"
+                                required>
+                            <p><span id="value"></span></p>
+                        </td>
+                    </tr>
+                </table>
+
+
+                <p>To get the results please enter your email and we will send it to you right away. Your
+                    information
+                    will be safe with us</p>
+
+                <div class="message" style="color: red; text-align: center;">
+                    {{text | safe}}
+                </div>
+
+                <center><input type="email" placeholder="Enter your email here" name="email_name" required>
+                </center>
+
+                <button id="myBtn" type="submit">Submit</button>
+            </form>
+
+            <script>
+                let slider = document.getElementById("myRange");
+                let output = document.getElementById("value");
+
+                output.innerHTML = slider.value + " : " + num_to_word_level(slider.value);
+
+                slider.oninput = function () {
+                    output.innerHTML = this.value + " : " + num_to_word_level(slider.value);
+                }
+            </script>
+
+
+        </div>
+    </div>
+
+    <!-- Get the element with id="defaultOpen" and click on it -->
+    <script>document.getElementById("defaultOpen").click();</script>
+</body>
+
+</html>
