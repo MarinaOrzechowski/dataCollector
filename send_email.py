@@ -4,8 +4,8 @@ from email.mime.text import MIMEText
 
 
 def send_email(email, happiness, age, avg_happiness, is_happier, total_participants, happiest_age):
-    from_email = "mishkice@gmail.com"
-    from_password = "Orzechowski9225"
+    from_email = "youremail@here.com"
+    from_password = "yourpasswordhere"
     to_email = email
 
     subject = "Happiness data"
